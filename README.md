@@ -7,7 +7,7 @@ This code adapts [David Pfeffer's](https://github.com/pfeffed) unofficial [Chamb
 
 ## Usage
 1. Create an Alexa Skills Kit (ASK) app, using the intent schema, custom slot values, and sample utterances in this repo. Choose an invocation name like `my garage door`.
-2. Replace your MyQ username and password in `main.py`, and substitute `amzn1.echo-sdk-ams.app.<your-alexa-skills-id>` with the ID of the ASK skill you created.
+2. Replace `<MYQ_LOGIN_USERNAME>` and `<MYQ_LOGIN_PASSWORD>` in `main.py` with the username and password you created at Chamberlain, and substitute `amzn1.echo-sdk-ams.app.<your-alexa-skills-id>` with the ID of the ASK skill you created. The `APP_ID` should remain the same, it is Chamberlain specific and not specific to your MyQ account.
 3. Zip of the contents of this repo and upload as a new [AWS Lambda](https://console.aws.amazon.com/lambda/home) function, and add "Alexa Skills Kit" as an "Event Source".
 4. Modify your ASK skill with the [ARN](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html) of your newly created function.
 5. Test your interactions with the ASK console. When you've got it working, try it on your Echo: `Alexa, ask my garage door to open`.
