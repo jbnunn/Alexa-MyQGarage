@@ -1,0 +1,8 @@
+open
+opening
+closed
+closing
+close
+shut
+up
+down
