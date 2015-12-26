@@ -171,8 +171,8 @@ def onSessionEnded(sessionEndedRequest, session):
     print "Session ended"
 
 def getWelcomeResponse():
-    sessionAttributes = {};
-    cardTitle = "Welcome";
+    sessionAttributes = {}
+    cardTitle = "Welcome"
     speechOutput = """You can open or close your garage door by saying, ask my garage door to open."""
 
     # If the user either does not reply to the welcome message or says something that is not
@@ -180,7 +180,7 @@ def getWelcomeResponse():
     repromptText = 'Ask me to close your garage door by saying ask my garge door to close'
     shouldEndSession = True
 
-    return (buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
+    return (buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession))
 
 def moveIntent(intent):
     # Ask my garage to {open|close|shut|go up|go down}
@@ -194,8 +194,8 @@ def moveIntent(intent):
     #       }
     #     }
 
-    repromptText = "Ask the garage door to close or open";
-    shouldEndSession = True;
+    repromptText = "Ask the garage door to close or open"
+    shouldEndSession = True
 
     if (intent['slots']['doorstate']['value'] == "close") or (intent['slots']['doorstate']['value'] == "shut") or (intent['slots']['doorstate']['value'] == "go down"):
         close()
@@ -208,8 +208,8 @@ def moveIntent(intent):
         speechOutput = "Ok, I'm opening your garage door"
         cardTitle = speechOutput
 
-    repromptText = "I didn't understand that. You can say ask the garage door if it's open, or tell it to open or close";
-    shouldEndSession = True;
+    repromptText = "I didn't understand that. You can say ask the garage door if it's open, or tell it to open or close"
+    shouldEndSession = True
 
     return(buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession))
 
@@ -224,28 +224,36 @@ def stateResponse(intent):
     #         }
     #       }
     #     }
-    doorstate = check_door_state()
+    doorstate = status()
 
     if (intent['slots']['doorstate']['value'] == "open") or (intent['slots']['doorstate']['value'] == "up"):
         if doorstate == "open":
             speechOutput = "Yes, your garage door is open"
-            cardTitle = "Yes, your garage door is open";
-        if doorstate == "closed":
+            cardTitle = "Yes, your garage door is open"
+        elif doorstate == "closed":
             speechOutput = "No, your garage door is closed"
-            cardTitle = "No, your garage door is closed";
+            cardTitle = "No, your garage door is closed"
+        else:
+            speechOutput = "Your garage door is " + doorstate
+            cardTitle = "Your garage door is " + doorstate
+
     elif (intent['slots']['doorstate']['value'] == "closed") or (intent['slots']['doorstate']['value'] == "shut") or (intent['slots']['doorstate']['value'] == "down"):
         if doorstate == "closed":
             speechOutput = "Yes, your garage door is closed"
-            cardTitle = "Yes, your garage door is closed";
-        if doorstate == "open":
+            cardTitle = "Yes, your garage door is closed"
+        elif doorstate == "open":
             speechOutput = "No, your garage door is open"
-            cardTitle = "No, your garage door is open";
+            cardTitle = "No, your garage door is open"
+        else:
+            speechOutput = "Your garage door is " + doorstate
+            cardTitle = "Your garage door is " + doorstate
+
     else:
-        cardTitle = "Try again;
-        repromptText = "I didn't understand that. You can say ask the garage door if it's open";
+        speechOutput = "I didn't understand that. You can say ask the garage door if it's open"
+        cardTitle = "Try again"
 
-        shouldEndSession = True;
-
+    repromptText = "I didn't understand that. You can say ask the garage door if it's open"
+    shouldEndSession = True
 
     return(buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession))
 
