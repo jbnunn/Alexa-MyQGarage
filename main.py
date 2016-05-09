@@ -121,7 +121,7 @@ def get_device_id():
 
     devices = requests.get(device_list_uri(myq_security_token)).json()
     for dev in devices["Devices"]:
-        if dev["MyQDeviceTypeName"] == "VGDO":
+        if (dev["MyQDeviceTypeName"] == "VGDO") or (dev["MyQDeviceTypeName"] == "GarageDoorOpener"):
             myq_device_id = str(dev["DeviceId"])
             # We only want the first one
             break
