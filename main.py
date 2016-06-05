@@ -267,8 +267,8 @@ def buildSpeechletResponse(title, output, repromptText, shouldEndSession):
         },
         "card": {
             "type": "Simple",
-            "title": "Garage - " + title,
-            "content": "Garage - " + output
+            "title": "MyQ - " + title,
+            "content": "MyQ - " + output
         },
         "reprompt": {
             "outputSpeech": {
