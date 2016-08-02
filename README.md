@@ -8,14 +8,22 @@ This code adapts [David Pfeffer's](https://github.com/pfeffed) unofficial [Chamb
 ## Usage
 1. Create an Alexa Skills Kit (ASK) app, using the intent schema, custom slot values, and sample utterances in this repo. Choose an invocation name like `my garage door`.
 2. Replace `<MYQ_LOGIN_USERNAME>` and `<MYQ_LOGIN_PASSWORD>` in `main.py` with the username and password you created at Chamberlain, and substitute `amzn1.echo-sdk-ams.app.<your-alexa-skills-id>` with the ID of the ASK skill you created. The `APP_ID` should remain the same, it is Chamberlain specific and not specific to your MyQ account.
-3. Zip of the contents of this repo and upload as a new [AWS Lambda](https://console.aws.amazon.com/lambda/home) function, and add "Alexa Skills Kit" as an "Event Source".
-4. Modify your ASK skill with the [ARN](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html) of your newly created function.
-5. Test your interactions with the ASK console. When you've got it working, try it on your Echo: `Alexa, ask my garage door to open`.
+3. Zip up the contents of this repo, you'll need it later in step 5.
+4. Create a new [AWS Lambda](https://console.aws.amazon.com/lambda/home) function. At "Select a Blueprint," press the "Next" button to skip. 
+5. For the "Configure Triggers" page, click in the dotted box to show the triggers options, and select "Alexa Skills Kit." Click next to continue.
+6. Configure the function by giving it a name, description, and selecting the "Python 2.7" runtime. For "Code Entry Type," specify the ZIP file you created in Step 3.
+7. Leave "Handler" at "lambda_function.lambda_handler", and use a "Create new role from templates" as your "Role". 
+8. Give your role a name, like "MyQRole", and choose "Simple Microservice Permissions." Leave "Memory" and "VPC" at their defaults, and give a timeout of "15 seconds," then click "Next". A new page will open. Verify your details, then click "Create function."
+9. Modify your ASK skill with the [ARN](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html) of your newly created function.
+10. Test your interactions with the ASK console. When you've got it working, try it on your Echo: `Alexa, ask my garage door to open`.
 
-## Alexa Skills Kit Documentation
+## If this worked, congratulations! If not, keep reading!
+Troubleshooting Alexa to Lambda interactions can be done via AWS Lambda. The Lambda function panel will have tabs for Code, Configuration, Triggers, and Monitoring. "Monitoring" is where you can view logs to see the requests that come in from the Alexa Skills Kit. Most of the time, you'll be able to find the error here. A lot of times, you'll see errors because you didn't change some of the default values in the `main.py` code in lines 15, 16, and 25.
+
+### Alexa Skills Kit Documentation
 The documentation for the Alexa Skills Kit is available on the [Amazon Apps and Services Developer Portal](https://developer.amazon.com/appsandservices/solutions/alexa/alexa-skills-kit/).
 
-## Resources
+### Resources
 Here are a few direct links to Alexa and Lambda documentation:
 
 - [Using the Alexa Skills Kit Samples (Node.js)](https://github.com/amzn/alexa-skills-kit-js)
