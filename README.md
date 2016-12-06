@@ -8,11 +8,14 @@ This code adapts [David Pfeffer's](https://github.com/pfeffed) unofficial [Chamb
 ## Usage
 1. Create an Alexa Skills Kit (ASK) app, using the intent schema, custom slot values, and sample utterances in this repo. Choose an invocation name like `my garage door`.
 2. Replace `<MYQ_LOGIN_USERNAME>` and `<MYQ_LOGIN_PASSWORD>` in `main.py` with the username and password you created at Chamberlain, and substitute `amzn1.echo-sdk-ams.app.<your-alexa-skills-id>` with the ID of the ASK skill you created. The `APP_ID` should remain the same, it is Chamberlain specific and not specific to your MyQ account.
-3. Zip up the contents of this repo, you'll need it later in step 5.
+3. Create a zip file for Lambda with the following command  (you'll need it later in step 6):
+
+        zip -r lambda-upload.zip main.py requests requests-2.9.1.dist-info
+
 4. Create a new [AWS Lambda](https://console.aws.amazon.com/lambda/home) function. At "Select a Blueprint," press the "Next" button to skip. 
 5. For the "Configure Triggers" page, click in the dotted box to show the triggers options, and select "Alexa Skills Kit." Click next to continue.
-6. Configure the function by giving it a name, description, and selecting the "Python 2.7" runtime. For "Code Entry Type," specify the ZIP file you created in Step 3.
-7. Leave "Handler" at "lambda_function.lambda_handler", and use a "Create new role from templates" as your "Role". 
+6. Configure the function by giving it a name, description, and selecting the "Python 2.7" runtime. For "Code Entry Type," specify the ZIP file "lambda-upload.zip" that you created in Step 3.
+7. Change "Handler" to "main.lambda_handler", and use a "Create new role from templates" as your "Role".
 8. Give your role a name, like "MyQRole", and choose "Simple Microservice Permissions." Leave "Memory" and "VPC" at their defaults, and give a timeout of "15 seconds," then click "Next". A new page will open. Verify your details, then click "Create function."
 9. Modify your ASK skill with the [ARN](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html) of your newly created function.
 10. Test your interactions with the ASK console. When you've got it working, try it on your Echo: `Alexa, ask my garage door to open`.
