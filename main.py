@@ -12,8 +12,8 @@ DEVICE_LIST_ENDPOINT = "api/UserDeviceDetails"
 DEVICE_SET_ENDPOINT = "Device/setDeviceAttribute"
 DEVICE_STATUS_ENDPOINT = "Device/getDeviceAttribute"
 
-USERNAME = <MYQ_LOGIN_USERNAME>
-PASSWORD = <MYQ_LOGIN_PASSWORD>
+USERNAME = "<MYQ_LOGIN_USERNAME>"
+PASSWORD = "<MYQ_LOGIN_PASSWORD>"
 
 myq_userid                  = ""
 myq_security_token          = ""
@@ -22,7 +22,7 @@ myq_device_id               = ""
 
 def lambda_handler(event, context):
 
-    if event['session']['application']['applicationId'] != "amzn1.echo-sdk-ams.app.<your-alexa-skills-id>":
+    if event['session']['application']['applicationId'] != "amzn1.ask.skill.<your-alexa-skills-id>":
         print "Invalid Application ID"
         raise
     else:
@@ -97,9 +97,7 @@ def login():
     myq_cached_login_response = response
 
 def change_door_state_uri():
-    uri = "https://" + HOST_URI + "/" + DEVICE_SET_ENDPOINT
-
-    return uri
+    return "https://" + HOST_URI + "/" + DEVICE_SET_ENDPOINT
 
 def change_door_state(command):
     open_close_state = 1 if command.lower() == "open" else 0
@@ -171,7 +169,6 @@ def onSessionEnded(sessionEndedRequest, session):
     print "Session ended"
 
 def getWelcomeResponse():
-    sessionAttributes = {}
     cardTitle = "Welcome"
     speechOutput = """You can open or close your garage door by saying, ask my garage door to open."""
 
@@ -193,10 +190,6 @@ def moveIntent(intent):
     #         }
     #       }
     #     }
-
-    repromptText = "Ask the garage door to close or open"
-    shouldEndSession = True
-
     if (intent['slots']['doorstate']['value'] == "close") or (intent['slots']['doorstate']['value'] == "shut") or (intent['slots']['doorstate']['value'] == "go down"):
         close()
         print("Closing...")
@@ -207,7 +200,10 @@ def moveIntent(intent):
         print("Opening...")
         speechOutput = "Ok, I'm opening your garage door"
         cardTitle = speechOutput
-
+    else:
+        speechOutput = "I didn't understand that. You can say ask the garage door to open or close"
+        cardTitle = "Try again"
+        
     repromptText = "I didn't understand that. You can say ask the garage door if it's open, or tell it to open or close"
     shouldEndSession = True
 
