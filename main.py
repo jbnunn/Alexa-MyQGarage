@@ -57,14 +57,20 @@ def close():
 def status():
     response = check_door_state()
     state = response["AttributeValue"]
-    if state == "9":
+    if state == "1":
         return "open"
     elif state == "2":
         return "closed"
-    elif state == "8":
+    elif state == "3":
+        return "stopped"
+    elif state == "4":
         return "opening"
     elif state == "5":
         return "closing"
+    elif state == "8":
+        return "opening" # seen as documented as "moving"
+    elif state == "9"
+        return "open"
     else:
         return state + " is an unknown state for the door."
 
