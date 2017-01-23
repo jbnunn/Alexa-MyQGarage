@@ -69,7 +69,7 @@ def status():
         return "closing"
     elif state == "8":
         return "opening" # seen as documented as "moving"
-    elif state == "9"
+    elif state == "9":
         return "open"
     else:
         return state + " is an unknown state for the door."
