@@ -1,0 +1,176 @@
+1.  Download a zip file of all the contents provided in Git by clicking on the green
+    "Clone or download" button located at the upper right side of the file listing section
+2.  Unzip the contents of the downloaded zip file onto a folder in your computer as you 
+    will be using and editing the text content of the files extracted in the directory
+3.  Create a free Amazon developer account via url "developer.amazon.com"
+4.  On the Amazon developer main page, click on the "Alexa" tab and select "Alexa Skills Kit"
+5.  Add a new skill using the following settings:
+
+    NOTE:  Settings not mentioned below can be left as is
+    
+    ----------------------------------------------------------------------------
+    Skill Information
+    ----------------------------------------------------------------------------
+    Skill Type       :  Custom Interaction Model
+    Name             :  <Your Own Custom Skill Name>
+    Invocation Name  :  <A Custom Device Name For Alexa to Recognize>  
+                      
+                        Example:  Garage
+    
+                        NOTE:  
+                        In my experience, it is better to give the skill a single 
+                        word invocation name because it will shorten your command
+                        instruction.
+                      
+                        It is easier to say "Alexa, ask GARAGE to close" than to
+                        say "Alexa, ask MY GARAGE to close"
+                      
+    ----------------------------------------------------------------------------
+    Interaction Model
+    ----------------------------------------------------------------------------
+    Intent Schema    :  <Paste the contents of the intent_schema.json file here>
+    Custom Slot Types:  <Add a slot type using the following info>
+
+                        Enter Type   :  door_states
+                        Enter Values :  <Paste the contents of the door_states.txt file here>
+
+    Sample Utterances:  <Paste the contents of the sample_utterances.txt file here>
+    
+    ----------------------------------------------------------------------------
+    Configuration
+    ----------------------------------------------------------------------------
+    
+    You will need an ARN to get pass this step so you will come back to this 
+    step only after you have created your lambda function which will provide
+    the ARN information that you need.  For now, proceed to step 6
+    
+    ------
+    
+6.  Click on the "Skill Information" navigation link on the left side to navigate back to
+    the "Skill Information" section of the skill you are trying to create and copy the
+    "Application ID" of the skill onto a notepad as you will be needing it for the next step.
+    
+    NOTE:  If your application id is "amzn1.ask.skill.2dc3256e-f143-41a6-ab8f-194c3df2d789",
+           you only need to copy the section after "amzn1.ask.skill." which is
+           "2dc3256e-f143-41a6-ab8f-194c3df2d789"
+    
+7.  Locate the folder that contains the extracted contents of the file downloaded in step 1
+    and edit the following contents of the "main.py" file in a text editor like "Notepad" 
+    as shown below:
+    
+    a.  Replace the following keywords with your actual MyQ login credentials:
+
+        <MYQ_LOGIN_USERNAME>
+        <MYQ_LOGIN_PASSWORD> 
+        
+        IMPORTANT:  I read that one of the users had to URL encode the username and the password
+                    in order to get things working so I decided to just do the same and everything
+                    worked for me as well.  You can use "http://meyerweb.com/eric/tools/dencoder/"
+                    to perform the encoding for you.  This means that if your MyQ login name is an
+                    email address, the "@" sign would need to be changed to "%40".
+                    
+                    Example:  Instead of entering "user@gmail.com" as the username, you will be
+                              entering "user%40gmail.com" instead.
+                          
+    b.  Replace the following keywords with your alex skills ID copied from step 6:                           
+    
+        <your-alexa-skills-id>
+        
+        IMPORTANT:  There is only one section in the file that contains this keyword that needs to
+                    be replaced with your skills ID, everything else must remain untouched.
+                    
+    c.  Save your changes.
+                    
+8.  Create a zip file named "lambda-upload.zip" containing the edited "main.py" file along with 
+    the entire contents of folders "requests" and "requests-2.9.1.dist-info" while keeping the 
+    folder structures in tact.  You will be needing this zip file in step 11.c
+9.  Create a free/Basic Amazon webservice (AWS) account via url "aws.amazon.com"
+10. On the upper right corner of the AWS main page, just beside your AWS account name,
+    shows a location that you need click on and select "US East (N. Virginia)"
+11. Still on the AWS main page, search for AWS Services called "lambda"
+12. Click the "Create a Lambda Function" button and follow the steps below:
+
+    a.  On the "Select Blueprint" page, choose "Blank Function"
+       
+    b.  On the "Configure Triggers" page, click on the dotted square box and choose
+        "Alexa Skills Kit", then click the "Next" button
+        
+        NOTE:  If "Alexa Skills Kit" is not available, it is because your location
+               is not set correctly (Please refer back to step 5 for more info)
+               
+    c.  On the "Configure function" page, enter the following information:
+    
+        NOTE:  Settings not mentioned below can be left as is
+
+        Name             :  <Your Custom Function Name Without Spaces>  
+                            Example:  OperateGarage
+                   
+        Runtime          :  Python 2.7
+        
+        ----------------------------------------------------------------
+        Lambda function code
+        ----------------------------------------------------------------
+        Code Entry Type  :  Upload a .ZIP file
+        Function Package :  <Click the "Upload" button and select the 
+                            "lambda-upload.zip" file that you created in step 8
+        
+        ----------------------------------------------------------------        
+        Lambda function handler and role
+        ----------------------------------------------------------------
+        Handler          :  main.lambda_handler
+        Role             :  Create new role from template(s)
+        Role name        :  <Your Custom Role Name>
+                            Example:  GarageOperator
+        
+        Policy templates :  Simple Microservice permissions        
+        
+    d.  Click the "Next" button
+    e.  Click the "Create function" button
+    f.  On the page that comes up immediately after clicking the "Create function"
+        button, notice that you now have the ARN information provided to you located
+        at the upper right section of the screen, just below your AWS account name.
+        This will look something like the sample below and you will need to copy this
+        information in order to proceed to the next step.
+        
+        Example:  arn:aws:lambda:us-east-1:563954059256:function:OperateGarage
+        
+13. Return to your Amazon developer account >> Alexa >> Alexa Skills Kit project and
+    edit the custom skill that you have already started creating back in step 5 and
+    navigate to the "Configuration" section of the skill and enter the information
+    below:
+    
+    NOTE:  Settings not mentioned below can be left as is
+    
+    ----------------------------------------------------------------------------
+    Configuration
+    ----------------------------------------------------------------------------
+    Service Endpoint Type:  AWS Lambda ARN (Amazon Resource Name)
+    
+                            For Geographical Region, choose "North America" and
+                            on the text box that popped up immediately underneath,
+                            enter the ARN information similar to the one shown 
+                            below and then click on the "Next" button.
+                            
+                            arn:aws:lambda:us-east-1:563954059256:function:OperateGarage
+                            
+    ----------------------------------------------------------------------------
+    Test
+    ----------------------------------------------------------------------------
+    On the "Test" section, just make sure that the skill is ENABLED and that's it.
+    
+14. Congratulations!  You are now ready to test your skill by giving Alexa the
+    command below:
+    
+    Assuming that your skill invocation name is "Garage", you would say
+
+    "Alexa, ask GARAGE if it's open"
+    
+    OR
+    
+    "Alexa, ask GARAGE to close"
+    
+
+I hope this semi-step by step guide helps make your implementation easier.  If you encounter
+any problems, I would advise that you double check your "main.py" file and make sure that
+you have done your edits correctly.  Good luck!
+    
