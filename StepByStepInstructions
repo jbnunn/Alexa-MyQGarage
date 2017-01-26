@@ -31,7 +31,7 @@
     Intent Schema    :  <Paste the contents of the intent_schema.json file here>
     Custom Slot Types:  <Add a slot type using the following info>
 
-                        Enter Type   :  door_states
+                        Enter Type   :  DOOR_STATES
                         Enter Values :  <Paste the contents of the door_states.txt file here>
 
     Sample Utterances:  <Paste the contents of the sample_utterances.txt file here>
