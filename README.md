@@ -1,6 +1,15 @@
 # Alexa-MyQGarage
 Using the Alexa Skills Kit to control your Chamberlain MyQ garage door.
 
+# UPDATE: Feb 04 2017
+**Chamberlain may have updated their API.**
+
+Currently, [requests to the API](https://github.com/jbnunn/Alexa-MyQGarage/blob/master/main.py#L95) endpoint return: 
+
+    Your request has been denied. 
+    
+Updates for this issue can be found here: https://github.com/jbnunn/Alexa-MyQGarage/issues/19
+
 ## Description
 By using the Alexa Skills Kit and AWS Lambda, you can control your Chamberlain MyQ garage door through your Amazon Echo.
 This code adapts [David Pfeffer's](https://github.com/pfeffed) unofficial [Chamberlain Liftmaster API](http://docs.unofficialliftmastermyq.apiary.io/) to a Python-based app you can use inside of AWS Lambda.
