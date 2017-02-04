@@ -23,6 +23,8 @@ This code adapts [David Pfeffer's](https://github.com/pfeffed) unofficial [Chamb
 ## If this worked, congratulations! If not, keep reading!
 Troubleshooting Alexa to Lambda interactions can be done via AWS Lambda. The Lambda function panel will have tabs for Code, Configuration, Triggers, and Monitoring. "Monitoring" is where you can view logs to see the requests that come in from the Alexa Skills Kit. Most of the time, you'll be able to find the error here. A lot of times, you'll see errors because you didn't change some of the default values in the `main.py` code in lines 15, 16, and 25.
 
+If you're still stuck, read the excellent [step-by-step guide](https://github.com/jbnunn/Alexa-MyQGarage/blob/master/StepByStepInstructions) from @tigerbrain.
+
 ### Alexa Skills Kit Documentation
 The documentation for the Alexa Skills Kit is available on the [Amazon Apps and Services Developer Portal](https://developer.amazon.com/appsandservices/solutions/alexa/alexa-skills-kit/).
 
