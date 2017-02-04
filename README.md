@@ -2,7 +2,7 @@
 Using the Alexa Skills Kit to control your Chamberlain MyQ garage door.
 
 # UPDATE: Feb 04 2017
-**Chamberlain may have updated their API.**
+**Chamberlain may have updated their API, this is currently not working.**
 
 Currently, [requests to the API](https://github.com/jbnunn/Alexa-MyQGarage/blob/master/main.py#L95) endpoint return: 
 
