@@ -12,7 +12,7 @@ This code adapts [David Pfeffer's](https://github.com/pfeffed) unofficial [Chamb
 
         zip -r lambda-upload.zip main.py requests requests-2.9.1.dist-info
 
-4. Create a new [AWS Lambda](https://console.aws.amazon.com/lambda/home?region=us-east-1) function in the _us-east-1_ region. At "Select a Blueprint," press the "Next" button to skip. 
+4. Create a new [AWS Lambda](https://console.aws.amazon.com/lambda/home?region=us-east-1) function in the _us-east-1_ region. At "Select a Blueprint," press the "Next" button to skip.
 5. For the "Configure Triggers" page, click in the dotted box to show the triggers options, and select "Alexa Skills Kit." Click next to continue.
 6. Configure the function by giving it a name, description, and selecting the "Python 2.7" runtime. For "Code Entry Type," specify the ZIP file "lambda-upload.zip" that you created in Step 3.
 7. Change "Handler" to "main.lambda_handler", and use a "Create new role from templates" as your "Role".
@@ -21,7 +21,7 @@ This code adapts [David Pfeffer's](https://github.com/pfeffed) unofficial [Chamb
 10. Test your interactions with the ASK console. When you've got it working, try it on your Echo: `Alexa, ask my garage door to open`.
 
 ## If this worked, congratulations! If not, keep reading!
-Troubleshooting Alexa to Lambda interactions can be done via AWS Lambda. The Lambda function panel will have tabs for Code, Configuration, Triggers, and Monitoring. "Monitoring" is where you can view logs to see the requests that come in from the Alexa Skills Kit. Most of the time, you'll be able to find the error here. A lot of times, you'll see errors because you didn't change some of the default values in the `main.py` code in lines 15, 16, and 25.
+Troubleshooting Alexa to Lambda interactions can be done via AWS Lambda. The Lambda function panel will have tabs for Code, Configuration, Triggers, and Monitoring. "Monitoring" is where you can view logs to see the requests that come in from the Alexa Skills Kit. Most of the time, you'll be able to find the error here. A lot of times, you'll see errors because you didn't change some of the default values in the `main.py` code in lines 14, 15, and 24.
 
 If you're still stuck, read the excellent [step-by-step guide](https://github.com/jbnunn/Alexa-MyQGarage/blob/master/StepByStepInstructions) from @tigerbrain.
 
@@ -35,6 +35,10 @@ Here are a few direct links to Alexa and Lambda documentation:
 - [Getting Started](https://developer.amazon.com/appsandservices/solutions/alexa/alexa-skills-kit/getting-started-guide)
 - [Invocation Name Guidelines](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/choosing-the-invocation-name-for-an-alexa-skill)
 - [Developing an Alexa Skill as an AWS Lambda Function](https://developer.amazon.com/appsandservices/solutions/alexa/alexa-skills-kit/docs/developing-an-alexa-skill-as-a-lambda-function)
+
+### Callouts
+
+Special thanks to the contributors who help keep this alive. Check out [https://github.com/arraylabs/myq](https://github.com/arraylabs/myq) for some great work that keeps inspiring this project, and @tigerbrain's [Multi Door Support](https://github.com/tigerbrain/Alexa-MyQ-WithMultiDoorSupport) work.
 
 ### Disclaimer
 
