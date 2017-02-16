@@ -149,10 +149,12 @@ def check_door_state():
     devices = get_devices()
 
     for dev in devices:
-        if dev["MyQDeviceTypeName"] in ["VGDO", "GarageDoorOpener", "Garage Door Opener WGDO"]:
-            # This skill assumes only one garage door, so we take the first one we come across
-            myq_device_id = str(dev["MyQDeviceId"])
-            return 1
+        if str(dev["MyQDeviceId"]) == str(myq_device_id):
+            for attribute in dev["Attributes"]:
+                if attribute["AttributeDisplayName"] == "doorstate":
+                    door_state = attribute['Value']
+    
+    return door_state    
 
 # Called when the session starts
 def onSessionStarted(requestId, session):
