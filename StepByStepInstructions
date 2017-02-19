@@ -19,7 +19,8 @@
     
                         NOTE:  
                         In my experience, it is better to give the skill a single 
-                        word invocation name because it will shorten your command                        instruction.
+                        word invocation name because it will shorten your command
+                        instruction.
                       
                         It is easier to say "Alexa, ask GARAGE to close" than to
                         say "Alexa, ask MY GARAGE to close"
