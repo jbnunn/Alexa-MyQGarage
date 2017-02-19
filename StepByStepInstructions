@@ -19,8 +19,7 @@
     
                         NOTE:  
                         In my experience, it is better to give the skill a single 
-                        word invocation name because it will shorten your command
-                        instruction.
+                        word invocation name because it will shorten your command                        instruction.
                       
                         It is easier to say "Alexa, ask GARAGE to close" than to
                         say "Alexa, ask MY GARAGE to close"
@@ -63,14 +62,10 @@
         <MYQ_LOGIN_USERNAME>
         <MYQ_LOGIN_PASSWORD> 
         
-        IMPORTANT:  I read that one of the users had to URL encode the username and the password
-                    in order to get things working so I decided to just do the same and everything
-                    worked for me as well.  You can use "http://meyerweb.com/eric/tools/dencoder/"
-                    to perform the encoding for you.  This means that if your MyQ login name is an
-                    email address, the "@" sign would need to be changed to "%40".
-                    
-                    Example:  Instead of entering "user@gmail.com" as the username, you will be
-                              entering "user%40gmail.com" instead.
+        IMPORTANT:  As of 18-FEB-2017, URL encoding the username and the password is no longer
+                    a necessity and should not be done because it will cause login failures.
+                    Please enter the username and password exactly the way you would enter
+                    them in the MyQ app.
                           
     b.  Replace the following keywords with your alex skills ID copied from step 6:                           
     
