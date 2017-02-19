@@ -56,22 +56,22 @@ def close():
 def status():
     state = check_door_state()
 
-    if state == 1:
+    if state == "1":
         return "open"
-    elif state == 2:
+    elif state == "2":
         return "closed"
-    elif state == 3:
+    elif state == "3":
         return "stopped"
-    elif state == 4:
+    elif state == "4":
         return "opening"
-    elif state == 5:
+    elif state == "5":
         return "closing"
-    elif state == 8:
+    elif state == "8":
         return "moving"
-    elif state == 9:
+    elif state == "9":
         return "open"
     else:
-        return str(state) + " is an unknown state for the door."
+        return str(state) + ", an unknown state for the door."
 
 def login():
 
