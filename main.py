@@ -2,22 +2,11 @@ import requests
 import os
 import json
 import time
-
-APP_ID = "Vj8pQggXLhLy0WHahglCD4N1nAkkXQtGYpq2HrHD7H1nvmbT55KqtN6RSF4ILB/i"
-LOCALE = "en"
-
-HOST_URI = "myqexternal.myqdevice.com"
-LOGIN_ENDPOINT = "api/v4/User/Validate"
-DEVICE_LIST_ENDPOINT = "api/v4/UserDeviceDetails/Get"
-DEVICE_SET_ENDPOINT = "api/v4/DeviceAttribute/PutDeviceAttribute"
+import myq
 
 USERNAME = "<MYQ_LOGIN_USERNAME>"
 PASSWORD = "<MYQ_LOGIN_PASSWORD>"
-
-myq_userid                  = ""
-myq_security_token          = ""
-myq_cached_login_response   = ""
-myq_device_id               = ""
+mq = myq.MyQ(USERNAME,PASSWORD)
 
 def lambda_handler(event, context):
 
@@ -27,9 +16,8 @@ def lambda_handler(event, context):
     else:
         # Not using sessions for now
         sessionAttributes = {}
-
-        login()
-        get_device_id()
+        mq.login()
+        mq.get_device_id()
 
         if event['session']['new']:
             onSessionStarted(event['request']['requestId'], event['session'])
@@ -47,114 +35,6 @@ def lambda_handler(event, context):
         return(response)
 
 
-def open():
-    change_door_state("open")
-
-def close():
-    change_door_state("close")
-
-def status():
-    state = check_door_state()
-
-    if state == "1":
-        return "open"
-    elif state == "2":
-        return "closed"
-    elif state == "3":
-        return "stopped"
-    elif state == "4":
-        return "opening"
-    elif state == "5":
-        return "closing"
-    elif state == "8":
-        return "moving"
-    elif state == "9":
-        return "open"
-    else:
-        return str(state) + ", an unknown state for the door."
-
-def login():
-
-    global myq_userid
-    global myq_security_token
-    global myq_cached_login_response
-
-    params = {
-        'username': USERNAME,
-        'password': PASSWORD
-    }
-
-    login = requests.post(
-            'https://{host_uri}/{login_endpoint}'.format(
-                host_uri=HOST_URI,
-                login_endpoint=LOGIN_ENDPOINT),
-                json=params,
-                headers={
-                    'MyQApplicationId': APP_ID
-                }
-        )
-
-    auth = login.json()
-
-    myq_security_token = auth['SecurityToken']
-    return True
-
-def change_door_state(command):
-    open_close_state = 1 if command.lower() == "open" else 0
-
-    payload = {
-        'attributeName': 'desireddoorstate',
-        'myQDeviceId': myq_device_id,
-        'AttributeValue': open_close_state,
-    }
-
-    device_action = requests.put(
-        'https://{host_uri}/{device_set_endpoint}'.format(
-            host_uri=HOST_URI,
-            device_set_endpoint=DEVICE_SET_ENDPOINT),
-            data=payload,
-            headers={
-                'MyQApplicationId': APP_ID,
-                'SecurityToken': myq_security_token
-            }
-    )
-
-    return device_action.status_code == 200
-
-def get_devices():
-    devices = requests.get(
-        'https://{host_uri}/{device_list_endpoint}'.format(
-            host_uri=HOST_URI,
-            device_list_endpoint=DEVICE_LIST_ENDPOINT),
-            headers={
-                'MyQApplicationId': APP_ID,
-                'SecurityToken': myq_security_token
-            }
-    )
-
-    return devices.json()['Devices']
-
-def get_device_id():
-    global myq_device_id
-
-    devices = get_devices()
-
-    for dev in devices:
-        if dev["MyQDeviceTypeName"] in ["VGDO", "GarageDoorOpener", "Garage Door Opener WGDO"]:
-            myq_device_id = str(dev["MyQDeviceId"])
-            # This skill assumes only one garage door, so we take the first one we come across
-            break
-
-def check_door_state():
-    devices = get_devices()
-
-    for dev in devices:
-        if str(dev["MyQDeviceId"]) == str(myq_device_id):
-            for attribute in dev["Attributes"]:
-                if attribute["AttributeDisplayName"] == "doorstate":
-                    door_state = attribute['Value']
-    
-    return door_state    
 
 # Called when the session starts
 def onSessionStarted(requestId, session):
@@ -212,11 +92,11 @@ def moveIntent(intent):
         }
     """
     if (intent['slots']['doorstate']['value'] == "close") or (intent['slots']['doorstate']['value'] == "shut") or (intent['slots']['doorstate']['value'] == "go down"):
-        close()
+        mq.close()
         speechOutput = "Ok, I'm closing your garage door"
         cardTitle = "Closing your garage door"
     elif (intent['slots']['doorstate']['value'] == "open") or (intent['slots']['doorstate']['value'] == "go up"):
-        open()
+        mq.open()
         speechOutput = "Ok, I'm opening your garage door"
         cardTitle = speechOutput
     else:
@@ -241,7 +121,7 @@ def stateResponse(intent):
           }
         }
     """
-    doorstate = status()
+    doorstate = mq.status()
 
     if (intent['slots']['doorstate']['value'] == "open") or (intent['slots']['doorstate']['value'] == "up"):
         if doorstate == "open":
