@@ -10,7 +10,7 @@ This code adapts [David Pfeffer's](https://github.com/pfeffed) unofficial [Chamb
 2. Replace `<MYQ_LOGIN_USERNAME>` and `<MYQ_LOGIN_PASSWORD>` in `main.py` with the username and password you created at Chamberlain, and substitute `amzn1.echo-sdk-ams.app.<your-alexa-skills-id>` with the ID of the ASK skill you created. The `APP_ID` should remain the same, it is Chamberlain specific and not specific to your MyQ account.
 3. Create a zip file for Lambda with the following command  (you'll need it later in step 6):
 
-        zip -r lambda-upload.zip main.py requests requests-2.9.1.dist-info
+        zip -r lambda-upload.zip main.py myq.py requests requests-2.9.1.dist-info
 
 4. Create a new [AWS Lambda](https://console.aws.amazon.com/lambda/home?region=us-east-1) function in the _us-east-1_ region. At "Select a Blueprint," press the "Next" button to skip.
 5. For the "Configure Triggers" page, click in the dotted box to show the triggers options, and select "Alexa Skills Kit." Click next to continue.

@@ -18,8 +18,8 @@ class MyQ:
     myq_userid                  = ""
     myq_security_token          = ""
     myq_cached_login_response   = ""
-    myq_device_id               = ""
-    myq_lamp_device_id          = ""
+    myq_device_id               = False
+    myq_lamp_device_id          = False
 
     def __init__(self, username, password):
         self.username = username
@@ -134,9 +134,9 @@ class MyQ:
         devices = self.get_devices()
         for dev in devices:
             print("Device => " + dev["MyQDeviceTypeName"])
-            if dev["MyQDeviceTypeName"] in ["VGDO", "GarageDoorOpener", "Garage Door Opener WGDO"]:
+            if (not self.myq_device_id) and dev["MyQDeviceTypeName"] in ["VGDO", "GarageDoorOpener", "Garage Door Opener WGDO"]:
                 self.myq_device_id = str(dev["MyQDeviceId"])
-            elif dev["MyQDeviceTypeName"] == "LampModule":
+            elif (not self.myq_lamp_device_id) and dev["MyQDeviceTypeName"] == "LampModule":
                 self.myq_lamp_device_id = str(dev["MyQDeviceId"])
                 
     def check_door_state(self):
