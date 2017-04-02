@@ -59,16 +59,16 @@
     as shown below:
     
     a.  Replace the following keywords with your actual MyQ login credentials:
-
-        <MYQ_LOGIN_USERNAME>
+    
+        <MYQ_LOGIN_USERNAME>     (NOTE: Replace entire string including <> to something like email@domain.com)
         <MYQ_LOGIN_PASSWORD> 
         
         IMPORTANT:  As of 18-FEB-2017, URL encoding the username and the password is no longer
                     a necessity and should not be done because it will cause login failures.
                     Please enter the username and password exactly the way you would enter
-                    them in the MyQ app.
+                    them in the MyQ app similar to the sample shown above.
                           
-    b.  Replace the following keywords with your Alexa skills ID copied from step 6:                           
+    b.  Replace the keyword below (including <>) with your Alexa skills ID copied from step 6:                           
     
         <your-alexa-skills-id>
         
