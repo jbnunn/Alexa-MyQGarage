@@ -77,9 +77,9 @@
                     
     c.  Save your changes.
                     
-8.  Create a zip file named "lambda-upload.zip" containing the edited "main.py" file along with 
-    the entire contents of folders "requests" and "requests-2.9.1.dist-info" while keeping the 
-    folder structures in tact.  You will be needing this zip file in step 11.c
+8.  Create a zip file named "lambda-upload.zip" containing the edited "main.py" file, the "myq.py" file,
+    the "requests" folder and the "requests-2.9.1.dist-info" folder. Be sure to keep the folder structures
+    in tact.  You will be needing this zip file in step 11.c
 9.  Create a free/Basic Amazon webservice (AWS) account via url "aws.amazon.com"
 10. On the upper right corner of the AWS main page, just beside your AWS account name,
     shows a location that you need click on and select "US East (N. Virginia)"
