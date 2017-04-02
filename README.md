@@ -21,6 +21,8 @@ This code adapts [David Pfeffer's](https://github.com/pfeffed) unofficial [Chamb
 10. Test your interactions with the ASK console. When you've got it working, try it on your Echo: `Alexa, ask my garage door to open`.
 
 ## If this worked, congratulations! If not, keep reading!
+IMPORTANT:  Before attempting to troubleshoot your issue, first verify that AWS Lambda is fully up and running by checking its status on the [AWS Service Health Dashboard](https://status.aws.amazon.com/).
+
 Troubleshooting Alexa to Lambda interactions can be done via AWS Lambda. The Lambda function panel will have tabs for Code, Configuration, Triggers, and Monitoring. "Monitoring" is where you can view logs to see the requests that come in from the Alexa Skills Kit. Most of the time, you'll be able to find the error here. A lot of times, you'll see errors because you didn't change some of the default values in the `main.py` code in lines 14, 15, and 24.
 
 If you're still stuck, read the excellent [step-by-step guide](https://github.com/jbnunn/Alexa-MyQGarage/blob/master/StepByStepInstructions) from @tigerbrain.
