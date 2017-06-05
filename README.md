@@ -12,7 +12,8 @@ This code adapts [David Pfeffer's](https://github.com/pfeffed) unofficial [Chamb
 
         zip -r lambda-upload.zip main.py myq.py requests requests-2.9.1.dist-info
 
-4. Create a new [AWS Lambda](https://console.aws.amazon.com/lambda/home?region=us-east-1) function in the _us-east-1_ region. At "Select a Blueprint," press the "Next" button to skip.
+4. Create a new [AWS Lambda](https://console.aws.amazon.com/lambda/home?region=us-east-1) function in the _us-east-1_ (N. Virginia) 
+region. At "Select a Blueprint," press the "Next" button to skip.
 5. For the "Configure Triggers" page, click in the dotted box to show the triggers options, and select "Alexa Skills Kit." Click next to continue.
 6. Configure the function by giving it a name, description, and selecting the "Python 2.7" runtime. For "Code Entry Type," specify the ZIP file "lambda-upload.zip" that you created in Step 3.
 7. Change "Handler" to "main.lambda_handler", and use a "Create new role from templates" as your "Role".
